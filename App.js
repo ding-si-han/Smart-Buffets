@@ -4,7 +4,6 @@ import {NativeRouter, Switch, Route} from 'react-router-native';
 
 import Home from './components/Home';
 import Menu from './components/Menu';
-
 import Analytics from './components/Analytics';
 
 export default class App extends React.Component {
@@ -24,8 +23,8 @@ export default class App extends React.Component {
       <NativeRouter>
         <View style={styles.container} >
           <Switch>
-            <Route exact path="/o" component={Home} ></Route>
-            <Route exact path="/" component={Menu} ></Route>
+            <Route exact path="/" component={Home} ></Route>
+            <Route exact path="/menu" component={Menu} ></Route>
             <Route exact path="/analytics" component={Analytics} ></Route>
           </Switch>
         </View>
