@@ -1,37 +1,58 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Button, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 
-export default ({history}) => (
-    <View style={styles.container} >
-        <View style={styles.sidebar}>
-            <Image style={styles.marriotBackground} source={require('../assets/Home/MarriotBackground.png')} />
+export default class Sidemenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
-            <TouchableOpacity style={styles.inactiveButtonContainer} onPress={()=> history.push("/")}>
-                <View style={styles.homeButton}>
-                    <Image style={styles.buttonIcon} source={require('../assets/Home/homeIcon.png')} />    
-                </View>           
-                <Text style={styles.buttonText}>Home</Text>
-            </TouchableOpacity>
+  render() {
+      if (this.props.page == 'Home') {
+        homeStyle = styles.activeButtonContainer;
+        menuStyle = styles.inactiveButtonContainer;
+        analyticsStyle = styles.inactiveButtonContainer;
+      } else if (this.props.page == 'Menu') {
+        homeStyle = styles.inactiveButtonContainer;
+        menuStyle = styles.activeButtonContainer;
+        analyticsStyle = styles.inactiveButtonContainer;
+      } else if (this.props.page == 'Analytics') {
+        homeStyle = styles.inactiveButtonContainer;
+        menuStyle = styles.inactiveButtonContainer;
+        analyticsStyle = styles.activeButtonContainer;
+      }
+    return (
+        <View style={styles.container} >
+            <View style={styles.sidebar}>
+                <Image style={styles.marriotBackground} source={require('../assets/Home/MarriotBackground.png')} />
 
-            <TouchableOpacity style={styles.inactiveButtonContainer} onPress={()=> history.push("/menu")}>
-                <View>
-                    <Image style={styles.buttonIcon} source={require('../assets/Home/menuIcon.png')} />    
-                </View>               
-                <Text style={styles.buttonText}>Menu</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={homeStyle} onPress={()=> this.props.history.push("/")}>
+                    <View style={styles.homeButton}>
+                        <Image style={styles.buttonIcon} source={require('../assets/Home/homeIcon.png')} />    
+                    </View>           
+                    <Text style={styles.buttonText}>Home</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.activeButtonContainer} onPress={()=> history.push("/analytics")}>
-                <View>
-                    <Image style={styles.buttonIcon} source={require('../assets/Home/analyticsIcon.png')} />    
-                </View>      
-                <Text style={styles.buttonText}>Analytics</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={menuStyle} onPress={()=> this.props.history.push("/menu")}>
+                    <View>
+                        <Image style={styles.buttonIcon} source={require('../assets/Home/menuIcon.png')} />    
+                    </View>               
+                    <Text style={styles.buttonText}>Menu</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={analyticsStyle} onPress={()=> this.props.history.push("/analytics")}>
+                    <View>
+                        <Image style={styles.buttonIcon} source={require('../assets/Home/analyticsIcon.png')} />    
+                    </View>      
+                    <Text style={styles.buttonText}>Analytics</Text>
+                </TouchableOpacity>
+            </View>
         </View>
+    );
+  }
+}
 
-
-
-    </View>
-)
 
 
 const styles = StyleSheet.create({

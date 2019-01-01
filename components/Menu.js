@@ -13,7 +13,7 @@ export default class Menu extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <Sidemenu history={this.props.history} /> 
+          <Sidemenu history={this.props.history} page={'Menu'} /> 
           <Text>Menu</Text>              
       </View>
 

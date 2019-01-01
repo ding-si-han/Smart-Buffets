@@ -13,7 +13,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-          <Sidemenu history={this.props.history} /> 
+          <Sidemenu history={this.props.history} page={'Home'} /> 
           <Text>Home</Text>              
       </View>
 

@@ -13,7 +13,7 @@
     render() {
       return (
         <View style={styles.container}>
-            <Sidemenu history={this.props.history} /> 
+            <Sidemenu history={this.props.history} page={"Analytics"}/> 
             <Text>Analytics</Text>              
         </View>
 
