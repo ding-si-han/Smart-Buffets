@@ -29,5 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     backgroundColor: '#0C2336',
+    width: '100%',
+    height: '100%',    
   },
 });

@@ -23,13 +23,14 @@ export default class Sidemenu extends Component {
         analyticsStyle = styles.activeButtonContainer;
       }
     return (
+        <View>
         <View style={styles.container} >
             <View style={styles.sidebar}>
                 <Image style={styles.marriotBackground} source={require('../assets/Home/MarriotBackground.png')} />
 
                 <TouchableOpacity style={homeStyle} onPress={()=> this.props.history.push("/")}>
                     <View style={styles.homeButton}>
-                        <Image style={styles.buttonIcon} source={require('../assets/Home/homeIcon.png')} />    
+                        <Image resizeMode={'contain'} style={styles.buttonIcon} source={require('../assets/Home/homeIcon.png')} />    
                     </View>           
                     <Text style={styles.buttonText}>Home</Text>
                 </TouchableOpacity>
@@ -49,6 +50,7 @@ export default class Sidemenu extends Component {
                 </TouchableOpacity>
             </View>
         </View>
+        </View>
     );
   }
 }
@@ -57,19 +59,25 @@ export default class Sidemenu extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+    //   flex: 1,
       flexDirection: 'row',
       backgroundColor: '#fff',
-      alignItems: 'stretch',
       justifyContent: 'flex-start',
       backgroundColor: '#0C2336',
+      height: '100%',
+      width: '100%',      
+
     },
 
     sidebar: {
-        height: '100%',
-        width: '31%',
+        // height: '100%',
+        // width: '31%',
+        // flexDirection: "row",
+        justifyContent: 'flex-start',
         backgroundColor: 'rgba(184,35,64,0.31)',
         justifyContent: 'flex-start',
+        // width: '100%',
+        flexGrow: 1, 
     },
     body: {
         height: "100%",
@@ -110,10 +118,24 @@ const styles = StyleSheet.create({
     buttonIcon: {
         marginLeft: 10,
         paddingTop: 20,
+
+        //// CODE TO SHIRNK SIZE OF ICONS
+        // borderColor: 'green',
+        // borderWidth: 2,
+        // flex: 1,
+        // width: null,
+        // height: null,
+        
     },
 
     homeButton: {
         justifyContent: 'flex-end',
         paddingBottom: 5,
+
+        //// CODE TO SHIRNK SIZE OF ICONS
+        // borderColor: 'green',
+        // borderWidth: 2,
+        // height: 50,
+        // width:50
     }
   });
