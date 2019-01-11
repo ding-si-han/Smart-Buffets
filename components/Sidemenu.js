@@ -42,7 +42,7 @@ export default class Sidemenu extends Component {
                     <Text style={styles.buttonText}>Menu</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={analyticsStyle} onPress={()=> this.props.history.push("/analytics")}>
+                <TouchableOpacity style={analyticsStyle} onPress={()=> this.props.history.push("/analytics/summary")}>
                     <View>
                         <Image style={styles.buttonIcon} source={require('../assets/Home/analyticsIcon.png')} />    
                     </View>      
