@@ -21,24 +21,30 @@ export default class Home extends Component {
             
             <View style={styles.progressBarView}>
               <View style={styles.cookedProgressBar}>
-                <Text style={styles.progressText}>Hello World</Text>
+                <Text style={styles.doneProgressText}>Hello World</Text>
               </View>            
             </View>
 
             <Text style={styles.subheaderText}>UPCOMING DISHES</Text>  
             <View style={styles.progressBarView}>
               <View style={styles.upcomingProgressBar}>
-                <Text style={styles.progressText}>Hello World</Text>
+                <View style={[styles.yellowBar, styles.firstBar]}>            
+                </View>
+                <Text style={styles.progressText}>Bolognese</Text>
               </View>            
             </View>
             <View style={styles.progressBarView}>
               <View style={styles.upcomingProgressBar}>
-                <Text style={styles.progressText}>Hello World</Text>
+                <View style={[styles.yellowBar, styles.secondBar]}>            
+                </View>
+                <Text style={styles.progressText}>Mushroom Soup</Text>
               </View>            
             </View>
             <View style={styles.progressBarView}>
               <View style={styles.upcomingProgressBar}>
-                <Text style={styles.progressText}>Hello World</Text>
+                <View style={[styles.yellowBar, styles.thirdBar]}>            
+                </View>
+                <Text style={styles.progressText}>Blueberry Cheesecake</Text>
               </View>            
             </View>
           </View>            
@@ -101,12 +107,37 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 100,
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,204,0,0.9)',
+    backgroundColor: 'rgba(255,255,255,0.96)',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+    
+  },
+  doneProgressText: {
+
+    fontSize: 28,
+    color: 'black',
+    paddingLeft: 30,
   },
   progressText: {
 
     fontSize: 28,
-    color: 'white',
-    paddingLeft: 30,
-  }
+    color: 'black',
+    paddingRight: 33,
+    paddingTop: 15,
+  },
+  yellowBar: {
+    height: '100%', 
+    borderRadius: 100,
+    backgroundColor: 'rgba(255,204,0,0.9)',
+  },
+  firstBar: {
+    width: '10%', 
+  },
+  secondBar: {
+    width: '27%', 
+  },
+  thirdBar: {
+    width: '34%', 
+  },
 });

@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 60,
     paddingLeft: '6%',
-    paddingTop: '8%'
+    paddingTop: '8%',
+    fontWeight: '200'
   },
 
 });

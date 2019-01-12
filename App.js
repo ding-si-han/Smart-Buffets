@@ -10,6 +10,8 @@ import MenuMainCourse from './components/MenuMainCourse';
 import MenuDessert from './components/MenuDessert';
 import AnalyticsSummary from './components/AnalyticsSummary';
 import AnalyticsIndividual from './components/AnalyticsIndividual';
+import AnalyticsDish from './components/AnalyticsDish';
+import AnalyticsGraph from './components/AnalyticsGraph';
 
 export default class App extends React.Component {
   constructor() {
@@ -36,6 +38,8 @@ export default class App extends React.Component {
             <Route exact path="/menu/dessert" component={MenuDessert} ></Route>
             <Route exact path="/analytics/summary" component={AnalyticsSummary} ></Route>
             <Route exact path="/analytics/individual" component={AnalyticsIndividual} ></Route>
+            <Route exact path="/analytics/dish" component={AnalyticsDish} ></Route>
+            <Route exact path="/analytics/graph" component={AnalyticsGraph} ></Route>
           </Switch>
         </View>
       </NativeRouter>

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { View, Text,StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Sidemenu from './Sidemenu'
@@ -16,27 +17,14 @@ export default class Analytics extends Component {
           <Sidemenu history={this.props.history} page={'Analytics'} /> 
 
           <View style={styles.bodyContainer}>
-            <View>
+            <View style={{alignItems: 'center'}}>
               <Text style={styles.headerText}>Analytics Summary</Text> 
-              <View style={{flexDirection: 'row'}}>
-                <View style={{flexDirection: 'column', alignItems: 'center', width: '50%', height: '95%'}}>
-                  <Text style={styles.textStyles}>Appetizer</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{flexDirection: 'column', alignItems: 'center', width: 900, height: 700}}>
                   <Image resizeMode='contain' source={require('../assets/Analytics/analytics.png')} style={styles.imageStyles} />
+                  <Text style={styles.textStyles}>Bolognese</Text>
                 </View>
-                <View style={{flexDirection: 'column', alignItems: 'center', width: '50%', height: '95%'}}>
-                  <Text style={styles.textStyles}>Soups</Text>
-                  <Image resizeMode='contain' source={require('../assets/Analytics/analytics.png')} style={styles.imageStyles} />
-                </View>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{flexDirection: 'column', alignItems: 'center', width: '50%', height: '95%'}}>
-                  <Text style={styles.textStyles}>Main Course</Text>
-                  <Image resizeMode='contain' source={require('../assets/Analytics/analytics.png')} style={styles.imageStyles} />
-                </View>
-                <View style={{flexDirection: 'column', alignItems: 'center', width: '50%', height: '95%'}}>
-                  <Text style={styles.textStyles}>Dessert</Text>
-                  <Image resizeMode='contain' source={require('../assets/Analytics/analytics.png')} style={styles.imageStyles} />
-                </View>
+
               </View>
 
               
@@ -49,7 +37,7 @@ export default class Analytics extends Component {
                 <Text style={styles.tabText}>SUMMARY</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.inactiveTabContainer}
-              onPress={() => this.props.history.push('/analytics/graph')}>
+              onPress={() => this.props.history.push('/analytics/individual')}>
                 <Text style={styles.tabText}>INDIVIDUAL</Text>
               </TouchableOpacity>
             </View>
@@ -102,11 +90,14 @@ const styles = StyleSheet.create({
   },
   textStyles: {
     color: 'white',
-    fontSize: 36,
+    fontSize: 60,
     fontWeight: '200',
+    paddingBottom: 100,
   },
   imageStyles: {
-    width: '80%',
+    flex: 1,
+    width: 700,
+    height: 500,
 
   }
 });
