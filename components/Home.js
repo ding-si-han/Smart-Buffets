@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet } from 'react-native';
+import { View, Text,StyleSheet, Button } from 'react-native';
 import Sidemenu from './Sidemenu'
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      
     };
   }
 
@@ -106,7 +106,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     borderRadius: 100,
-    justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255,0.96)',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -129,7 +128,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,204,0,0.9)',
   },
   firstBar: {
-    width: '10%', 
+    // width: this.state.bolognese, 
+    width: '15%', 
   },
   secondBar: {
     width: '27%', 
