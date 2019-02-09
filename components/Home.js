@@ -21,7 +21,7 @@ export default class Home extends Component {
             
             <View style={styles.progressBarView}>
               <View style={styles.cookedProgressBar}>
-                <Text style={styles.doneProgressText}>Hello World</Text>
+                <Text style={styles.doneProgressText}>Beef Stew</Text>
               </View>            
             </View>
 
@@ -110,13 +110,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.96)',
     flexDirection: 'row',
     justifyContent: 'space-between',
-
-    
   },
   doneProgressText: {
-
     fontSize: 28,
-    color: 'black',
+    color: 'white',
     paddingLeft: 30,
   },
   progressText: {
