@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Animated, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, Animated, Button, Image, FlatList } from 'react-native';
 import Sidemenu from './Sidemenu'
 import {
   SCLAlert,
@@ -10,148 +10,180 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      widthProgress: new Animated.Value(0.5),
-      percentageWidth: '45%',
+      widthProgressBolog: new Animated.Value(0.37),
+      widthProgressBlueb: new Animated.Value(0.40),
+      widthProgressMushr: new Animated.Value(0.45),
+      percentageWidthBolog: '35%',
+      percentageWidthBlueb: '40%',
+      percentageWidthMushr: '45%',
       dataSource: 0.5,
       count: 0,
-      show: false
+      show: false,
+      Bolog: 1.3,
+      cookingItems: ["Beef Stew", "Mexican Chorizo"],
+      upcomingItems: ["Bolognese", "Blueberry Cheesecake", "Mushroom Soup"]
     }
     this.animateWidth = this.animateWidth.bind(this)
     this.checkWidthProgress = this.checkWidthProgress.bind(this)
   }
   handleOpen = () => {
     this.setState({ show: true })
+
   }
 
   handleClose = () => {
     this.setState({ show: false })
+    var upcomingItemsArray = [...this.state.upcomingItems];
+    console.log(upcomingItemsArray)
+    var doneItemToAdd = upcomingItemsArray.shift()
+    var cookingItemsArray = [...this.state.cookingItems]
+    cookingItemsArray.push(doneItemToAdd)
+    console.log(upcomingItemsArray)
+    console.log(cookingItemsArray)
+    console.log(doneItemToAdd)
+    this.setState({ upcomingItems: upcomingItemsArray })
+    this.setState({ cookingItems: cookingItemsArray })
   }
 
-  sleep(ms){
+  sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
 
 
-  animateWidth = (widthValue) => {
+  animateWidth = (widthValue, index, name) => {
+    // console.log("PERCENTAGE WIDTH VALUE")
+    // console.log(this.state.widthProgress0)
+    // console.log(widthValue)
+    // console.log(item)
     Animated.timing(
-      this.state.widthProgress,
+      this.state['widthProgress' + name],
       {
         toValue: widthValue,
-        duration: 15000,
+        duration: 1500,
       }
     ).start();
 
-    const progressInterpolate = this.state.widthProgress.interpolate({
+    const progressInterpolate = this.state['widthProgress' + name].interpolate({
       inputRange: [0, 1],
-      outputRange: ["0%", "100%"],
+      outputRange: ["5%", "100%"],
       extrapolate: "clamp",
     })
-    this.setState({ percentageWidth: progressInterpolate })
+    this.setState({ ["percentageWidth" + name]: progressInterpolate })
   }
 
   componentDidMount() {
     this.timer = setInterval(() => this.getWidth(), 5000)
-    // this.timer = setInterval(() => this.checkWidthProgress(), 2000)
+    this.timer = setInterval(() => this.checkWidthProgress(), 4000)
+    this._mounted = true
+  }
+
+  componentWillUnmount() {
+    this._mounted = false
   }
 
   async checkWidthProgress() {
-    let placeThis = this
-    console.log(this.state.dataSource)
-    inputVar = this.state.dataSource
-    if (inputVar <= 0.15) {
-      console.log("sleeping")
-      setTimeout(function(){
-        console.log("show alert")
-        console.log(placeThis.state.dataSource)
-        placeThis.setState({show:true})
-      }, 5000)
-
-    console.log("Checked!")
-    }
+    upcomingItemsArrayList = [...this.state.upcomingItems]
+    upcomingItemsArrayList.forEach((item) => {
+      inputVar = this.state[item.substring(0, 5)]
+      if (this._mounted) {
+        if (inputVar == 0) {
+          console.log("alert now")
+          this.state.show = true
+        } else {
+          console.log("FAILED WHY?")
+        }
+      }
+    })
   }
 
-  async getWidth() {
+
+async getWidth() {
+  if (this._mounted) {
     fetch('https://jsonblob.com/api/jsonBlob/06efa233-2c7e-11e9-bf40-5be10d5acd31', { method: "GET" })
       // fetch('http://192.168.0.103:5005/predict', {method: "GET"})
       .then((response) => response.json())
       .then((responseJson) => {
-        this.animateWidth(responseJson.width[0][1])
-        // this.animateWidth(responseJson.Weight[this.state.count] / 10)
+        // console.log(responseJson.width0[0][2])
+        this.animateWidth(responseJson.width0[0][1], "0", responseJson.width0[0][2])
+        this.animateWidth(responseJson.width1[0][1], "1", responseJson.width1[0][2])
+        this.animateWidth(responseJson.width2[0][1], "2", responseJson.width2[0][2])
         this.setState({
           isLoading: false,
-          // dataSource: responseJson.Weight[this.state.count] / 10,
-          // count: this.state.count + 1
-          dataSource: responseJson.width[0][1],
+          [responseJson.width0[0][2]]: responseJson.width0[0][1],
+          [responseJson.width1[0][2]]: responseJson.width1[0][1],
+          [responseJson.width2[0][2]]: responseJson.width2[0][1]
         }, function () {
-          // console.log(this.state.dataSource)
-          
+          // console.log(this.state.Bolog)
         });
-
       })
       .catch((error) => {
         console.error(error);
       });
   }
+}
 
-  render() {
+
+render() {
+  let renderEachCookingItem = (info) => {
     return (
-      <View style={styles.container}>
-        <Sidemenu history={this.props.history} page={'Home'} />
+      <View style={[styles.cookedProgressBar, { height: 55 }]}>
+        <Text style={styles.doneProgressText}>{info.item} </Text>
+      </View>
+    );
+  }
+  let renderEmptyFlatList = () => {
+    console.log("NO UPCOMING ITEMS")
+    return <Text style={{color: "white", fontSize: 20}}>No Upcoming Items At The Moment</Text>   
+  }
+  let renderEachUpcomingItem = (info, index) => {
+      return (
+        <View style={[styles.upcomingProgressBar, { height: 55 }]}>
+          <Animated.View style={[styles.yellowBar, styles.firstBar, { borderRadius: "80%", width: this.state["percentageWidth" + info.substring(0, 5)] }]}>
+          </Animated.View>
+          <Text style={styles.progressText}>{info} </Text>
+        </View>
+      );
+    }
 
-        <View style={styles.bodyContainer}>
+  return (
+    <View style={styles.container}>
+      <Sidemenu history={this.props.history} page={'Home'} />
+      <View style={styles.bodyContainer}>
+        <Text style={styles.headerText}>Dashboard</Text>
+        <Text style={styles.subheaderText}>COOKING </Text>
+        <FlatList
+          data={this.state.cookingItems}
+          renderItem={renderEachCookingItem}
+          style={{ borderColor: "red", borderWidth: "2", marginHorizontal: 34, marginTop: -10 }}
+        />
 
-          <Text style={styles.headerText}>Dashboard</Text>
-          <Text style={styles.subheaderText}>COOKING </Text>
 
-          <View style={styles.progressBarView}>
-            <View style={styles.cookedProgressBar}>
-              <Text style={styles.doneProgressText}>Beef Stew </Text>
-            </View>
-          </View>
-
-          <Text style={styles.subheaderText}>UPCOMING DISHES</Text>
-          <View style={styles.progressBarView}>
-            <View style={styles.upcomingProgressBar}>
-              <Animated.View style={[styles.yellowBar, styles.firstBar, {borderRadius: "800%", width: this.state.percentageWidth }]}>
-              </Animated.View>
-              <Text style={styles.progressText}>Bolognese </Text>
-            </View>
-          </View>
-          <View style={styles.progressBarView}>
-            <View style={styles.upcomingProgressBar}>
-              <View style={[styles.yellowBar, styles.secondBar]}>
-              </View>
-              <Text style={styles.progressText}>Mushroom Soup</Text>
-            </View>
-          </View>
-          <View style={styles.progressBarView}>
-            <View style={styles.upcomingProgressBar}>
-              <View style={[styles.yellowBar, styles.thirdBar]}>
-              </View>
-              <Text style={styles.progressText}>Blueberry Cheesecake</Text>
-            </View>
-          </View>
-
-          <View style={styles.container}>
+        <Text style={styles.subheaderText}>UPCOMING DISHES</Text>
+        <FlatList
+          data={this.state.upcomingItems}
+          renderItem={({ item, index }) => renderEachUpcomingItem(item, index)}
+          ListEmptyComponent={renderEmptyFlatList}
+          style={{ borderColor: "red", borderWidth: "2", paddingTop: 0, marginHorizontal: 34, marginTop: -10 }}
+        />
+        <View style={styles.container}>
           {/* <Button title="Show" onPress={this.handleOpen} /> */}
-          {/* <Image style={styles.logo} source={require('./assets/snack-icon.png')} /> */}
+
           <SCLAlert
             theme="inverse"
-            headerIconComponent= {<Image style={{borderRadius: "200%", width: "100%", height: "100%"}} source={require('../assets/Notification/bolognese.jpeg')} />}
+            headerIconComponent={<Image style={{ borderRadius: "200%", width: "100%", height: "100%" }} source={require('../assets/Notification/bolognese.jpeg')} />}
             show={this.state.show}
             subtitle="Prepare Bolognese"
-            onRequestClose = {this.handleClose}
+            onRequestClose={this.handleClose}
           >
-            {/* <Image style={styles.logo} source={require('../assets/Menu/MainCourse/Bolognese.png')} /> */}
             <SCLAlertButton theme="success" onPress={this.handleClose}>Started Cooking!</SCLAlertButton>
           </SCLAlert>
         </View>
-        </View>
       </View>
+    </View>
 
-    );
-  }
+  );
+}
 }
 
 const styles = StyleSheet.create({
@@ -177,7 +209,7 @@ const styles = StyleSheet.create({
   },
   subheaderText: {
     paddingBottom: '0.8%',
-    paddingTop: '4.5%',
+    paddingTop: '1.5%',
     paddingLeft: '5.6%',
     color: 'white',
     fontSize: 40,
@@ -194,7 +226,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   cookedProgressBar: {
-    marginVertical: 20,
+    marginVertical: 10.5,
     height: '100%',
     width: '100%',
     borderRadius: 100,
@@ -202,7 +234,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#127000',
   },
   upcomingProgressBar: {
-    marginVertical: 20,
+    marginVertical: 12,
     height: '100%',
     width: '100%',
     borderRadius: 100,
@@ -219,11 +251,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: 'black',
     paddingRight: 33,
-    paddingTop: 15,
+    paddingTop: 10,
   },
   yellowBar: {
     height: '100%',
-    // borderRadius: 100,
+    borderRadius: 100,
     // borderRadius: "300%",
     backgroundColor: 'rgba(255,204,0,0.9)',
   },

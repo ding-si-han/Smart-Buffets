@@ -12,6 +12,7 @@ import AnalyticsSummary from './components/AnalyticsSummary';
 import AnalyticsIndividual from './components/AnalyticsIndividual';
 import AnalyticsDish from './components/AnalyticsDish';
 import AnalyticsGraph from './components/AnalyticsGraph';
+import Insights from './components/Insights';
 
 export default class App extends React.Component {
   constructor() {
@@ -21,6 +22,7 @@ export default class App extends React.Component {
 
   componentDidMount(){
     Expo.ScreenOrientation.allowAsync("LANDSCAPE");
+    console.disableYellowBox = true
   }
 
   
@@ -37,9 +39,10 @@ export default class App extends React.Component {
             <Route exact path="/menu/maincourse" component={MenuMainCourse} ></Route>
             <Route exact path="/menu/dessert" component={MenuDessert} ></Route>
             <Route exact path="/analytics/summary" component={AnalyticsSummary} ></Route>
-            <Route exact path="/analytics/individual" component={AnalyticsIndividual} ></Route>
+            {/* <Route exact path="/analytics/individual" component={AnalyticsIndividual} ></Route>
             <Route exact path="/analytics/dish" component={AnalyticsDish} ></Route>
-            <Route exact path="/analytics/graph" component={AnalyticsGraph} ></Route>
+            <Route exact path="/analytics/graph" component={AnalyticsGraph} ></Route> */}
+            <Route exact path="/insights" component={Insights} ></Route>
           </Switch>
         </View>
       </NativeRouter>

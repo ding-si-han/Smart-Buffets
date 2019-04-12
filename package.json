@@ -1,4 +1,5 @@
 {
+  "name": "smartBuffets",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -10,10 +11,14 @@
     "expo": "^31.0.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-app-intro": "^1.1.5",
+    "react-native-chart-kit": "^2.4.0",
     "react-native-highcharts": "^1.0.2",
     "react-native-scl-alert": "^1.2.1",
+    "react-native-snap-carousel": "^3.7.5",
     "react-native-vector-icons": "^6.1.0",
-    "react-router-native": "^4.3.0"
+    "react-router-native": "^4.3.0",
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

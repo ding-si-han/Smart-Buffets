@@ -13,14 +13,22 @@ export default class Sidemenu extends Component {
         homeStyle = styles.activeButtonContainer;
         menuStyle = styles.inactiveButtonContainer;
         analyticsStyle = styles.inactiveButtonContainer;
+        insightsStyle = styles.inactiveButtonContainer;
       } else if (this.props.page == 'Menu') {
         homeStyle = styles.inactiveButtonContainer;
         menuStyle = styles.activeButtonContainer;
         analyticsStyle = styles.inactiveButtonContainer;
+        insightsStyle = styles.inactiveButtonContainer;
       } else if (this.props.page == 'Analytics') {
         homeStyle = styles.inactiveButtonContainer;
         menuStyle = styles.inactiveButtonContainer;
+        insightsStyle = styles.inactiveButtonContainer;
         analyticsStyle = styles.activeButtonContainer;
+      } else if (this.props.page == 'Insights') {
+        homeStyle = styles.inactiveButtonContainer;
+        menuStyle = styles.inactiveButtonContainer;
+        analyticsStyle = styles.inactiveButtonContainer;
+        insightsStyle = styles.activeButtonContainer;
       }
     return (
         <View>
@@ -48,6 +56,13 @@ export default class Sidemenu extends Component {
                     </View>      
                     <Text style={styles.buttonText}>Analytics</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity style={insightsStyle} onPress={()=> this.props.history.push("/insights")}>
+                    <View>
+                        <Image style={styles.buttonIcon} source={require('../assets/Home/analyticsIcon.png')} />    
+                    </View>      
+                    <Text style={styles.buttonText}>Insights</Text>
+                </TouchableOpacity>                
             </View>
         </View>
         </View>
@@ -71,7 +86,7 @@ const styles = StyleSheet.create({
 
     sidebar: {
         // height: '100%',
-        // width: '31%',
+        width: '31%',
         // flexDirection: "row",
         justifyContent: 'flex-start',
         backgroundColor: 'rgba(184,35,64,0.31)',
@@ -111,7 +126,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white',
-        fontSize: 36,
+        fontSize: 30,
         paddingLeft: 30,
         paddingTop: 8
     },
