@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground, ScrollView } from 'react-native';
 import Sidemenu from './Sidemenu';
+import FadeInView from 'react-native-fade-in-view'
+
 
 
 export default class Menu extends Component {
@@ -96,6 +98,8 @@ export default class Menu extends Component {
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Menu'} />
+        <FadeInView duration={900} style={{width: '69%'}}>
+
         <ScrollView>
         <View style={styles.bodyContainer}>
           <Text style={styles.headerText}>Main Course</Text>
@@ -107,6 +111,8 @@ export default class Menu extends Component {
           </View>
         </View>
         </ScrollView>
+        </FadeInView>
+
       </View>
     );
   }

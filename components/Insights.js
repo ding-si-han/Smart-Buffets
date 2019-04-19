@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Sidemenu from "./Sidemenu"
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image } from 'react-native'
-import { LineChart, BarChart } from 'react-native-chart-kit'
 import Carousel from 'simple-carousel-react-native';
+import FadeInView from 'react-native-fade-in-view'
+
 
 export default class Home extends Component {
   constructor(props) {
@@ -31,6 +32,8 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Insights'} />
+        <FadeInView duration={900} style={{width: '69%'}}>
+
         <View style={styles.bodyContainer}>
           <Text style={styles.headerText}>Insights</Text>
           <Carousel
@@ -96,6 +99,8 @@ export default class Home extends Component {
             />
           </View> */}
         </View>
+        </FadeInView>
+
       </View>
     );
   }

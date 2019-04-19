@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 
+
 export default class Sidemenu extends Component {
   constructor(props) {
     super(props);

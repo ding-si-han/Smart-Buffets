@@ -5,6 +5,7 @@ import {
   SCLAlert,
   SCLAlertButton
 } from 'react-native-scl-alert'
+import FadeInView from 'react-native-fade-in-view'
 
 export default class Home extends Component {
   constructor(props) {
@@ -59,7 +60,7 @@ export default class Home extends Component {
 
     const progressInterpolate = this.state['widthProgress' + name].interpolate({
       inputRange: [0, 1],
-      outputRange: ["7%", "100%"],
+      outputRange: ["7%", "70%"],
       extrapolate: "clamp",
     })
     this.setState({ ["percentageWidth" + name]: progressInterpolate })
@@ -145,7 +146,9 @@ render() {
 
   return (
     <View style={styles.container}>
+
       <Sidemenu history={this.props.history} page={'Home'} />
+      <FadeInView duration={900} style={{width: '69%'}}>
       <View style={styles.bodyContainer}>
         <Text style={styles.headerText}>Dashboard</Text>
         <Text style={styles.subheaderText}>COOKING </Text>
@@ -215,8 +218,8 @@ render() {
           </SCLAlert>
         </View>
       </View>
+      </FadeInView>
     </View>
-
   );
 }
 }

@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Sidemenu from './Sidemenu'
 import { LineChart } from 'react-native-chart-kit'
 import SegmentedControlTab from 'react-native-segmented-control-tab'
+import FadeInView from 'react-native-fade-in-view'
+
 
 export default class Analytics extends Component {
   constructor(props) {
@@ -30,6 +32,7 @@ export default class Analytics extends Component {
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Analytics'} />
+        <FadeInView duration={900} style={{width: '69%'}}>
 
         <View style={styles.bodyContainer}>
           <View>
@@ -187,6 +190,8 @@ export default class Analytics extends Component {
             </View>
           </View>
         </View>
+        </FadeInView>
+
       </View>
 
     );
