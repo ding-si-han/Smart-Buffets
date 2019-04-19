@@ -36,33 +36,37 @@ export default class Sidemenu extends Component {
             <View style={styles.sidebar}>
                 <Image style={styles.marriotBackground} source={require('../assets/Home/MarriotBackground.png')} />
 
-                <TouchableOpacity style={homeStyle} onPress={()=> this.props.history.push("/")}>
+
+
+
+                <TouchableOpacity style={homeStyle} onPress={()=> this.props.history.push("/home")}>
                     <View style={styles.homeButton}>
                         <Image resizeMode={'contain'} style={styles.buttonIcon} source={require('../assets/Home/homeIcon.png')} />    
                     </View>           
                     <Text style={styles.buttonText}>Home</Text>
-                </TouchableOpacity>
 
+                </TouchableOpacity>  
                 <TouchableOpacity style={menuStyle} onPress={()=> this.props.history.push("/menu")}>
                     <View>
                         <Image style={styles.buttonIcon} source={require('../assets/Home/menuIcon.png')} />    
                     </View>               
                     <Text style={styles.buttonText}>Menu</Text>
-                </TouchableOpacity>
 
-                <TouchableOpacity style={analyticsStyle} onPress={()=> this.props.history.push("/analytics/summary")}>
+                </TouchableOpacity>
+                <TouchableOpacity style={insightsStyle} onPress={()=> this.props.history.push("/insights")}>
+                    <View>
+                        <Image style={styles.buttonIcon} source={require('../assets/Home/ideasIcon.png')} />    
+                    </View>      
+                    <Text style={styles.buttonText}>Insights</Text>
+                </TouchableOpacity>      
+
+                <TouchableOpacity style={analyticsStyle} onPress={()=> this.props.history.push("/analytics/tod")}>
                     <View>
                         <Image style={styles.buttonIcon} source={require('../assets/Home/analyticsIcon.png')} />    
                     </View>      
                     <Text style={styles.buttonText}>Analytics</Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity style={insightsStyle} onPress={()=> this.props.history.push("/insights")}>
-                    <View>
-                        <Image style={styles.buttonIcon} source={require('../assets/Home/analyticsIcon.png')} />    
-                    </View>      
-                    <Text style={styles.buttonText}>Insights</Text>
-                </TouchableOpacity>                
+                
             </View>
         </View>
         </View>

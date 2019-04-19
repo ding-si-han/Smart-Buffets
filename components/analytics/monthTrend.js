@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Sidemenu from './Sidemenu'
+import Sidemenu from '../Sidemenu'
 import { LineChart } from 'react-native-chart-kit'
 import SegmentedControlTab from 'react-native-segmented-control-tab'
 
@@ -8,21 +8,22 @@ export default class Analytics extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: 0,
+      selectedIndex: 3,
     };
-    this.datesAppetizer = ['10am', '12pm', '2pm', '4pm', '6pm', '8pm', '10pm']
-    this.valuesAppetizer1 = [25, 72, 77, 70, 65, 62, 56, 72, 73, 79, 73, 72, 66, 63, 61, 60, 55, 20]
-    this.valuesAppetizer2 = [50, 67, 80, 72, 64, 69, 65, 67, 72, 76, 78, 92, 95, 80, 70, 66, 53, 25]
-    this.valuesAppetizer3 = [47, 63, 78, 81, 87, 75, 65, 68, 74, 77, 80, 93, 93, 85, 72, 68, 56, 32]
-    this.valuesAppetizer4 = [10, 46, 67, 71, 63, 53, 40, 62, 68, 56, 50, 66, 80, 83, 85, 84, 80, 74]
+    this.datesAppetizer = [1, 5, 10, 15, 20, 25, 30]
+    this.valuesAppetizer1 = [60, 67, 64, 63, 70, 77, 79, 82, 68, 67, 69, 64, 62, 60, 65, 70, 78, 82, 83, 90, 91, 92, 83, 84, 82, 80, 78, 77, 74, 72]
+    this.valuesAppetizer2 = [60, 61, 62, 63, 60, 65, 66, 64, 68, 70, 71, 72, 75, 76, 77, 78, 74, 72, 67, 64, 65, 62, 68, 64, 69, 73, 74, 74, 77, 73]
+    this.valuesAppetizer3 = [68, 70, 71, 72, 75, 76, 77, 78, 74, 72, 70, 68, 69, 65, 62, 63, 61, 64, 69, 65, 65, 70, 72, 73, 77, 78, 80, 81, 79, 82]
+    this.valuesAppetizer4 = [82, 83, 82, 84, 82, 83, 84, 82, 80, 78, 77, 74, 72, 60, 67, 64, 63, 70, 77, 79, 82, 68, 67, 69, 64, 62, 60, 65, 70, 78]
   }
   handleIndexChange = (index) => {
-    options=['Today', 'Yesterday', 'Week', 'Month']
+    options = ['Today', 'Yesterday', 'Week', 'Month']
     urlTab = options[index]
     // console.log(urlTab)
-    urlTab = urlTab.substring(0,3).toLowerCase()
+    urlTab = urlTab.substring(0, 3).toLowerCase()
     // console.log(urlTab)
     urlTab = '/analytics/' + urlTab
+    // console.log(urlTab)
     this.props.history.push(urlTab)
   }
 
@@ -34,7 +35,7 @@ export default class Analytics extends Component {
         <View style={styles.bodyContainer}>
           <View>
             <Text style={styles.headerText}>Analytics </Text>
-            <View style={{marginHorizontal: 100}}>
+            <View style={{ marginHorizontal: 100 }}>
               <SegmentedControlTab
                 values={['Today', 'Yesterday', 'Last Seven Days', 'Last Month']}
                 selectedIndex={this.state.selectedIndex}
@@ -151,11 +152,8 @@ export default class Analytics extends Component {
               </View>
               <View style={{ flexDirection: 'column', alignItems: 'center', width: '50%', height: '85%' }}>
                 <Text style={styles.textStyles}>Dessert</Text>
-
                 <View>
-
                   <LineChart
-
                     data={{
                       labels: this.datesAppetizer,
                       datasets: [{

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground, ScrollView } from 'react-native';
 import Sidemenu from './Sidemenu';
 
 
@@ -65,7 +65,7 @@ export default class Menu extends Component {
           </View>
 
           <View style={{flexDirection:'row', marginTop: '4.8%'}}>
-            <Icon name='timer' size='40' style={{paddingTop: '0.5%'}} />
+            <Icon name='timer' size={40} style={{paddingTop: '0.5%'}} />
             <Text style={styles.preparationTiming}>{currentItem.preparationTime}</Text>
           </View>
 
@@ -83,7 +83,7 @@ export default class Menu extends Component {
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Menu'} />
-
+        <ScrollView>
 
 
         <View style={styles.bodyContainer}>
@@ -92,8 +92,7 @@ export default class Menu extends Component {
             <FlatList
               renderItem={this.renderCategories}
               data={this.state.categories}
-              keyExtractor={(item) => item.id}
-            />
+              keyExtractor={(item) => item.id.toString()}            />
           </View>
 
 
@@ -101,6 +100,7 @@ export default class Menu extends Component {
 
 
         </View>
+        </ScrollView>
       </View>
 
     );
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     paddingTop: '4%',
-    paddingBottom: '7%',
+    paddingBottom: '4%',
     color: 'white',
     fontSize: 70,
     textAlign: 'center',

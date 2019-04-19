@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground, ScrollView } from 'react-native';
 import Sidemenu from './Sidemenu';
 
 export default class Menu extends Component {
@@ -49,7 +49,6 @@ export default class Menu extends Component {
         </ImageBackground>
       </TouchableOpacity>
       </View>
-
     )
 
   }
@@ -58,26 +57,20 @@ export default class Menu extends Component {
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Menu'} />
-
-
-
+        <ScrollView>
         <View style={styles.bodyContainer}>
           <Text style={styles.headerText}>Menu</Text>
           <View style={{justifyContent: 'flex-start'}}>
             <FlatList
               renderItem={this.renderCategories}
               data={this.state.categories}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item.id.toString()}
             />
           </View>
-
-
-
-
-
         </View>
+        </ScrollView>
       </View>
-
+      
     );
   }
 }
@@ -98,7 +91,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     paddingTop: '4%',
-    paddingBottom: '7%',
+    paddingBottom: '4%',
     color: 'white',
     fontSize: 70,
     textAlign: 'center',

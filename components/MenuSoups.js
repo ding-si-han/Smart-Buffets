@@ -1,25 +1,89 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet } from 'react-native';
-import Sidemenu from './Sidemenu'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, ImageBackground, ScrollView } from 'react-native';
+import Sidemenu from './Sidemenu';
 
-export default class MenuSoups extends Component {
+
+export default class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      categories: [
+        {
+          id: 1,
+          title: 'Beef Stew',
+          pngName: require('../assets/Menu/Soups/BeefStew.png'),
+          preparationTime: 22,
+        },
+        {
+          id: 2,
+          title: 'Clear Chicken Broth',
+          pngName: require('../assets/Menu/Soups/ClearChickenBroth.png'),
+          preparationTime: 14,
+        },
+        {
+          id: 3,
+          title: 'Masala Chicken Stew',
+          pngName: require('../assets/Menu/Soups/MushroomSoup.png'),
+          preparationTime: 22,
+        },
+        {
+          id: 4,
+          title: 'Pumpkin Spice Soup',
+          pngName: require('../assets/Menu/Soups/PumpkinSpiceSoup.png'),
+          preparationTime: 17,
+        },
+        {
+          id: 5,
+          title: 'Mushroom Soup',
+          pngName: require('../assets/Menu/Soups/MushroomSoup.png'),
+          preparationTime: 11,
+        },
+      ]
 
     };
+  }
+
+  renderCategories = (info) => {
+    let currentItem = info.item
+    return (
+      <View style={{height: 130}}>
+      <View >
+        <ImageBackground
+          style={styles.imageBackgroundFood}
+          source={currentItem.pngName}
+        >
+        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+          <View style={{width: '84%'}}> 
+            <Text style={styles.categoryText}>{currentItem.title}</Text>
+          </View>
+          <View style={{flexDirection:'row', marginTop: '4.8%'}}>
+            <Icon name='timer' size={40} style={{paddingTop: '0.5%'}} />
+            <Text style={styles.preparationTiming}>{currentItem.preparationTime}</Text>
+          </View>
+        </View>   
+        </ImageBackground>
+      </View>
+      </View>
+    )
   }
 
   render() {
     return (
       <View style={styles.container}>
-          <Sidemenu history={this.props.history} page={'Menu'} /> 
-
-          <View style={styles.bodyContainer}>
-            <Text style={styles.headerText}>Soups</Text>  
-          </View>            
+        <Sidemenu history={this.props.history} page={'Menu'} />
+        <ScrollView>
+        <View style={styles.bodyContainer}>
+          <Text style={styles.headerText}>Soups</Text>
+          <View style={{justifyContent: 'flex-start'}}>
+            <FlatList
+              renderItem={this.renderCategories}
+              data={this.state.categories}
+              keyExtractor={(item) => item.id.toString()}            />
+          </View>
+        </View>
+        </ScrollView>
       </View>
-
     );
   }
 }
@@ -36,53 +100,31 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
+
   },
   headerText: {
     paddingTop: '4%',
-    paddingBottom: '1.5%',
+    paddingBottom: '4%',
     color: 'white',
     fontSize: 70,
     textAlign: 'center',
     fontWeight: '200',
   },
-  subheaderText: {
-    paddingBottom: '0.8%',
-    paddingTop: '4.5%',
-    paddingLeft: '5.6%',
-    color: 'white',
-    fontSize: 40,
-    textAlign: 'left',
-    fontWeight: '500',
-  },
-  progressBarView: {
-    height: '7%',
+  imageBackgroundFood: {
     width: '100%',
-    paddingLeft: '5%',
-    paddingRight: '8%',  
-    marginBottom: '1.7%',
-    // padding: '2%',
-    justifyContent:'center'
-  },
-  cookedProgressBar: {
-    marginVertical: 20,
     height: '100%',
-    width: '100%',
-    borderRadius: 100,
-    justifyContent: 'center',
-    backgroundColor: '#127000',
   },
-  upcomingProgressBar: {
-    marginVertical: 20,
-    height: '100%',
-    width: '100%',
-    borderRadius: 100,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,204,0,0.9)',
+  categoryText: {
+    fontSize: 42,
+    paddingLeft: '6%',
+    paddingTop: '4.9%',
+    fontWeight: '200',
   },
-  progressText: {
+  preparationTiming: {
+    fontSize: 42,
+    // paddingTop: '1%',
+    paddingLeft: '1%',
+    fontWeight: '100',
+  },
 
-    fontSize: 28,
-    color: 'white',
-    paddingLeft: 30,
-  }
 });

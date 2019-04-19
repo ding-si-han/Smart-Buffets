@@ -15,9 +15,12 @@
     "react-native-chart-kit": "^2.4.0",
     "react-native-highcharts": "^1.0.2",
     "react-native-scl-alert": "^1.2.1",
+    "react-native-segment-tab": "^0.1.1",
+    "react-native-segmented-control-tab": "^3.4.0",
     "react-native-snap-carousel": "^3.7.5",
     "react-native-vector-icons": "^6.1.0",
     "react-router-native": "^4.3.0",
+    "simple-carousel-react-native": "^1.0.2",
     "styled-components": "^4.2.0"
   },
   "devDependencies": {

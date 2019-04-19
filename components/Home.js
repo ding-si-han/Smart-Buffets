@@ -13,49 +13,42 @@ export default class Home extends Component {
       widthProgressBolog: new Animated.Value(0.37),
       widthProgressBlueb: new Animated.Value(0.40),
       widthProgressMushr: new Animated.Value(0.45),
+      widthProgressMexic: new Animated.Value(0.45),
       percentageWidthBolog: '35%',
       percentageWidthBlueb: '40%',
       percentageWidthMushr: '45%',
-      dataSource: 0.5,
-      count: 0,
-      show: false,
-      Bolog: 1.3,
-      cookingItems: ["Beef Stew", "Mexican Chorizo"],
-      upcomingItems: ["Bolognese", "Blueberry Cheesecake", "Mushroom Soup"]
+      percentageWidthMexic: '47%',
+      cookingItems: [],
+      upcomingItems: ["Bolognese", "Blueberry Cheesecake", "Mushroom Soup", "Mexican Chorizo"],
+      showMexic: false,
+      showBolog: false,
+      showBlueb: false,
+      showMushr: false
     }
     this.animateWidth = this.animateWidth.bind(this)
     this.checkWidthProgress = this.checkWidthProgress.bind(this)
   }
-  handleOpen = () => {
-    this.setState({ show: true })
-
-  }
 
   handleClose = () => {
-    this.setState({ show: false })
+    this.setState({ showMexic: false })
+    this.setState({ showBolog: false })
+    this.setState({ showBlueb: false })
+    this.setState({ showMushr: false })
     var upcomingItemsArray = [...this.state.upcomingItems];
-    console.log(upcomingItemsArray)
     var doneItemToAdd = upcomingItemsArray.shift()
     var cookingItemsArray = [...this.state.cookingItems]
     cookingItemsArray.push(doneItemToAdd)
-    console.log(upcomingItemsArray)
-    console.log(cookingItemsArray)
-    console.log(doneItemToAdd)
     this.setState({ upcomingItems: upcomingItemsArray })
     this.setState({ cookingItems: cookingItemsArray })
   }
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
+  // sleep(ms) {
+  //   return new Promise(resolve => setTimeout(resolve, ms))
+  // }
 
 
 
   animateWidth = (widthValue, index, name) => {
-    // console.log("PERCENTAGE WIDTH VALUE")
-    // console.log(this.state.widthProgress0)
-    // console.log(widthValue)
-    // console.log(item)
     Animated.timing(
       this.state['widthProgress' + name],
       {
@@ -66,7 +59,7 @@ export default class Home extends Component {
 
     const progressInterpolate = this.state['widthProgress' + name].interpolate({
       inputRange: [0, 1],
-      outputRange: ["5%", "100%"],
+      outputRange: ["7%", "100%"],
       extrapolate: "clamp",
     })
     this.setState({ ["percentageWidth" + name]: progressInterpolate })
@@ -86,12 +79,13 @@ export default class Home extends Component {
     upcomingItemsArrayList = [...this.state.upcomingItems]
     upcomingItemsArrayList.forEach((item) => {
       inputVar = this.state[item.substring(0, 5)]
+      itemToShow = "show" + item.substring(0,5)
       if (this._mounted) {
-        if (inputVar == 0) {
+        if (inputVar <= 0) {
           console.log("alert now")
-          this.state.show = true
+          this.state[itemToShow] = true
         } else {
-          console.log("FAILED WHY?")
+          // console.log("FAILED WHY?")
         }
       }
     })
@@ -104,17 +98,18 @@ async getWidth() {
       // fetch('http://192.168.0.103:5005/predict', {method: "GET"})
       .then((response) => response.json())
       .then((responseJson) => {
-        // console.log(responseJson.width0[0][2])
-        this.animateWidth(responseJson.width0[0][1], "0", responseJson.width0[0][2])
-        this.animateWidth(responseJson.width1[0][1], "1", responseJson.width1[0][2])
-        this.animateWidth(responseJson.width2[0][1], "2", responseJson.width2[0][2])
+        this.animateWidth(responseJson.width0[0][1] -0.21, "0", responseJson.width0[0][2])
+        this.animateWidth(responseJson.width1[0][1] - 0.20, "1", responseJson.width1[0][2])
+        this.animateWidth(responseJson.width2[0][1] -0.11, "2", responseJson.width2[0][2])
+        this.animateWidth(responseJson.width3[0][1] - 0.21, "3", responseJson.width3[0][2])
         this.setState({
           isLoading: false,
-          [responseJson.width0[0][2]]: responseJson.width0[0][1],
-          [responseJson.width1[0][2]]: responseJson.width1[0][1],
-          [responseJson.width2[0][2]]: responseJson.width2[0][1]
+          [responseJson.width0[0][2]]: responseJson.width0[0][1] -0.21,
+          [responseJson.width1[0][2]]: responseJson.width1[0][1]-0.20,
+          [responseJson.width2[0][2]]: responseJson.width2[0][1]-0.11,
+          [responseJson.width3[0][2]]: responseJson.width3[0][1]-0.21
         }, function () {
-          // console.log(this.state.Bolog)
+          
         });
       })
       .catch((error) => {
@@ -133,8 +128,10 @@ render() {
     );
   }
   let renderEmptyFlatList = () => {
-    console.log("NO UPCOMING ITEMS")
-    return <Text style={{color: "white", fontSize: 20}}>No Upcoming Items At The Moment</Text>   
+    return <Text style={{color: "#ccc", fontSize: 35, paddingTop: 15, fontWeight: '200'}}>No Upcoming Items At The Moment</Text>   
+  }
+  let renderEmptyCookingFlatList = () => {
+    return <Text style={{color: "#bbb", fontSize: 35, paddingTop: 15, fontWeight: '200'}}>No Dishes Cooking At The Moment</Text>   
   }
   let renderEachUpcomingItem = (info, index) => {
       return (
@@ -154,26 +151,64 @@ render() {
         <Text style={styles.subheaderText}>COOKING </Text>
         <FlatList
           data={this.state.cookingItems}
+          keyExtractor={(item,index) => index.toString()}
           renderItem={renderEachCookingItem}
-          style={{ borderColor: "red", borderWidth: "2", marginHorizontal: 34, marginTop: -10 }}
+          style={{ marginHorizontal: 34, marginTop: -10 }}
+          ListEmptyComponent={renderEmptyCookingFlatList}
         />
 
 
         <Text style={styles.subheaderText}>UPCOMING DISHES</Text>
         <FlatList
           data={this.state.upcomingItems}
+          keyExtractor={(item,index) => index.toString()}
           renderItem={({ item, index }) => renderEachUpcomingItem(item, index)}
           ListEmptyComponent={renderEmptyFlatList}
-          style={{ borderColor: "red", borderWidth: "2", paddingTop: 0, marginHorizontal: 34, marginTop: -10 }}
+          style={{ paddingTop: 0, marginHorizontal: 34, marginTop: -10 }}
         />
         <View style={styles.container}>
-          {/* <Button title="Show" onPress={this.handleOpen} /> */}
-
           <SCLAlert
             theme="inverse"
-            headerIconComponent={<Image style={{ borderRadius: "200%", width: "100%", height: "100%" }} source={require('../assets/Notification/bolognese.jpeg')} />}
-            show={this.state.show}
+            headerIconComponent={<Image style={{ borderRadius: 140, width: "100%", height: "100%" }} source={require('../assets/Notification/bolognese.jpeg')} />}
+            show={this.state.showBolog}
             subtitle="Prepare Bolognese"
+            title=''
+            onRequestClose={this.handleClose}
+          >
+            <SCLAlertButton theme="success" onPress={this.handleClose}>Started Cooking!</SCLAlertButton>
+          </SCLAlert>
+        </View>
+        <View style={styles.container}>
+          <SCLAlert
+            theme="inverse"
+            headerIconComponent={<Image style={{ borderRadius: 140, width: "100%", height: "100%" }} source={require('../assets/Notification/blueb.jpeg')} />}
+            show={this.state.showBlueb}
+            subtitle="Prepare Blueberry Cheescake"
+            onRequestClose={this.handleClose}
+            title=''
+          >
+            <SCLAlertButton theme="success" onPress={this.handleClose}>Started Cooking!</SCLAlertButton>
+          </SCLAlert>
+        </View>
+        <View style={styles.container}>
+          <SCLAlert
+            theme="inverse"
+            headerIconComponent={<Image style={{ borderRadius: 140, width: "100%", height: "100%" }} source={require('../assets/Notification/mushr.jpeg')} />}
+            show={this.state.showMushr}
+            subtitle="Prepare Mushroom Soup"
+            onRequestClose={this.handleClose}
+            title=''
+          >
+            <SCLAlertButton theme="success" onPress={this.handleClose}>Started Cooking!</SCLAlertButton>
+          </SCLAlert>
+        </View>
+        <View style={styles.container}>
+          <SCLAlert
+            theme="inverse"
+            headerIconComponent={<Image style={{ borderRadius: 140, width: "100%", height: "100%" }} source={require('../assets/Notification/chori.jpeg')} />}
+            show={this.state.showMexic}
+            subtitle="Prepare Mexican Chorizo"
+            title=''
             onRequestClose={this.handleClose}
           >
             <SCLAlertButton theme="success" onPress={this.handleClose}>Started Cooking!</SCLAlertButton>
@@ -214,7 +249,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 40,
     textAlign: 'left',
-    fontWeight: '500',
+    fontWeight: '300',
   },
   progressBarView: {
     height: '7%',

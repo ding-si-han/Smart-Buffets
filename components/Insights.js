@@ -1,56 +1,100 @@
 import React, { Component } from 'react';
 import Sidemenu from "./Sidemenu"
-import {StyleSheet, Text, View, Dimensions} from 'react-native'
-import {LineChart} from 'react-native-chart-kit'
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image } from 'react-native'
+import { LineChart, BarChart } from 'react-native-chart-kit'
+import Carousel from 'simple-carousel-react-native';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isChecked: false,
+      nameTest: 'tues',
+      dayName: new Date().toLocaleString('en-us', {  weekday: 'long' }),
+      customerFlow: [62,65,75,70,80,92,90],
+      dayNumber: new Date().getDay() -1
     }
-    this.datesAppetizer =['10am', '12pm', '2pm', '4pm', '6pm', '8pm', '10pm']
-    this.valuesAppetizer = [50,67,80,70,65,69,65,67,72,76,78,92,95, 80,70,66,53,25]
-    // this.chart = new LineChart();
+    
+  }
+  componentDidMount(){
+    // // this.
+    // console.log(this.state.dayName);
+    // console.log(new Date().getDay() -1)
+
+
   }
 
-
   render() {
+    // const data = 
+
+    
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Insights'} />
-        <View>
-          <Text>
-            Bezier Line Chart
-          </Text>
-          <LineChart
-            
-            data={{
-              labels: this.datesAppetizer,
-              datasets: [{
-                data: this.valuesAppetizer
-              }]
-            }}
-            redraw
-            width={330} // from react-native
-            height={300}
-            yAxisLabel={' '}
-            chartConfig={{
-              backgroundColor: '#e26a00',
-              backgroundGradientFrom: '#fb8c00',
-              backgroundGradientTo: '#ffa726',
-              decimalPlaces: 0, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16
-              }
-            }}
-            bezier
-            style={{
+        <View style={styles.bodyContainer}>
+          <Text style={styles.headerText}>Insights</Text>
+          <Carousel
+            color='rgba(184,35,64,0.7)'
+            // style={{height: 1500, width: 1500}}
+            height="76.5%"
+            width={690}
+            bubbleWidth={100}
+            backgroundColor='FF0000'
+            >
+
+            <View style={{display: 'flex', flexDirection: 'column',alignItems:'center'}}>
+              <Image style={{height: 470, width: 470}} source={require('../assets/Insight/dailyInsight.png')} />
+              <Text style={{color:"white", paddingTop: 20, paddingHorizontal: 90, fontSize: 25, textAlign: "center",fontWeight: '200',}}>
+              Predicted customer flow today ({this.state.dayName}) is {this.state.customerFlow[this.state.dayNumber]} customers every hour
+                {/* Given that today is {this.state.dayName}, demand forecast from previous week indicates that each hour will average 80 customers */}
+              </Text>
+            </View>
+
+            <View style={{display: 'flex', flexDirection: 'column',alignItems:'center'}}>
+              <Image style={{height: 470, width: 470}} source={require('../assets/Insight/weatherInsight.png')} />
+              <Text style={{color:"white", paddingTop: 20, paddingHorizontal: 90, fontSize: 25, textAlign: "center",fontWeight: '200',}}>
+              Weather is likely to be stormy today. Demand for soups projected to 18% more than usual 
+                {/* Given that today is {this.state.dayName}, demand forecast from previous week indicates that each hour will average 80 customers */}
+              </Text>
+            </View>
+
+            <View style={{display: 'flex', flexDirection: 'column',alignItems:'center'}}>
+              <Image style={{height: 470, width: 470}} source={require('../assets/Insight/dessertInsight.png')} />
+              <Text style={{color:"white", paddingTop: 20, paddingHorizontal: 90, fontSize: 25, textAlign: "center",fontWeight: '200',}}>
+                Revamp the recipes for pies and pavlova to suit the customer's tastebuds
+                {/* Given that today is {this.state.dayName}, demand forecast from previous week indicates that each hour will average 80 customers */}
+              </Text>
+            </View>
+          </Carousel>
+          {/* <View style={{ marginLeft: 50, }}>
+            <BarChart
+              // style={graphStyle}
+              data={{
+                labels: ['Cheesecake', 'Cakes', 'Cupcakes', 'Tarts', 'Macaroons', 'Pies', 'Pavlova'],
+                datasets: [{
+                  data: [396,372,366,341,307,286,276,245,233,212] 
+                }]
+              }}
+              style={{
               marginVertical: 8,
               borderRadius: 16
             }}
-          />
+              width={600}
+              height={600}
+              yAxisLabel={' '}
+              chartConfig={{
+                backgroundColor: '#26872a',
+                backgroundGradientFrom: '#43a047',
+                backgroundGradientTo: '#66b66a',
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  borderRadius: 16,
+                  margin: 50,
+                }
+              }}
+            />
+          </View> */}
         </View>
       </View>
     );
@@ -66,61 +110,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#0C2336',
     width: '100%',
     height: '100%',
-  }
+  },
+  bodyContainer: {
+    flex: 1,
+  },
+  headerText: {
+    paddingTop: '4%',
+    paddingBottom: '1.5%',
+    color: 'white',
+    fontSize: 70,
+    textAlign: 'center',
+    fontWeight: '200',
+  },
 })
-// import React, { Component } from 'react';
-// import { AppRegistry, Alert } from 'react-native';
-// import AppIntro from 'react-native-app-intro';
-
-// export default class Example extends Component {
-//   onSkipBtnHandle = (index) => {
-//     Alert.alert('Skip');
-//     console.log(index);
-//   }
-//   doneBtnHandle = () => {
-//     Alert.alert('Done');
-//   }
-//   nextBtnHandle = (index) => {
-//     Alert.alert('Next');
-//     console.log(index);
-//   }
-//   onSlideChangeHandle = (index, total) => {
-//     console.log(index, total);
-//   }
-//   render() {
-//     const pageArray = [{
-//       title: 'Page 1',
-//       description: 'Description 1',
-//       img: 'https://goo.gl/Bnc3XP',
-//       imgStyle: {
-//         height: 80 * 2.5,
-//         width: 109 * 2.5,
-//       },
-//       backgroundColor: '#fa931d',
-//       fontColor: '#fff',
-//       level: 10,
-//     }, {
-//       title: 'Page 2',
-//       description: 'Description 2',
-//       img: 'https://goo.gl/Bnc3XP',
-//       imgStyle: {
-//         height: 93 * 2.5,
-//         width: 103 * 2.5,
-//       },
-//       backgroundColor: '#a4b602',
-//       fontColor: '#fff',
-//       level: 10,
-//     }];
-//     return (
-//       <AppIntro
-//         onNextBtnClick={this.nextBtnHandle}
-//         onDoneBtnClick={this.doneBtnHandle}
-//         onSkipBtnClick={this.onSkipBtnHandle}
-//         onSlideChange={this.onSlideChangeHandle}
-//         pageArray={pageArray}
-//       />
-//     );
-//   }
-// }
-
-// // AppRegistry.registerComponent('Example', () => Example);

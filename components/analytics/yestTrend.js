@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Sidemenu from './Sidemenu'
+import Sidemenu from '../Sidemenu'
 import { LineChart } from 'react-native-chart-kit'
 import SegmentedControlTab from 'react-native-segmented-control-tab'
 
@@ -8,13 +8,13 @@ export default class Analytics extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: 0,
+      selectedIndex: 1,
     };
     this.datesAppetizer = ['10am', '12pm', '2pm', '4pm', '6pm', '8pm', '10pm']
-    this.valuesAppetizer1 = [25, 72, 77, 70, 65, 62, 56, 72, 73, 79, 73, 72, 66, 63, 61, 60, 55, 20]
-    this.valuesAppetizer2 = [50, 67, 80, 72, 64, 69, 65, 67, 72, 76, 78, 92, 95, 80, 70, 66, 53, 25]
-    this.valuesAppetizer3 = [47, 63, 78, 81, 87, 75, 65, 68, 74, 77, 80, 93, 93, 85, 72, 68, 56, 32]
-    this.valuesAppetizer4 = [10, 46, 67, 71, 63, 53, 40, 62, 68, 56, 50, 66, 80, 83, 85, 84, 80, 74]
+    this.valuesAppetizer1 = [20, 68, 72, 70, 77, 70, 68, 70, 73, 75, 78, 74, 70, 69, 68, 61, 55, 32]
+    this.valuesAppetizer2 = [40, 54, 76, 75, 55, 50, 52, 55, 65, 78, 82, 95, 94, 87, 65, 61, 54, 31]
+    this.valuesAppetizer3 = [37, 52, 77, 77, 79, 75, 66, 60, 52, 48, 64, 82, 93, 89, 89, 68, 57, 33]
+    this.valuesAppetizer4 = [15, 37, 61, 75, 68, 54, 49, 45, 45, 56, 57, 61, 73, 80, 90, 94, 80, 74]
   }
   handleIndexChange = (index) => {
     options=['Today', 'Yesterday', 'Week', 'Month']
@@ -23,6 +23,7 @@ export default class Analytics extends Component {
     urlTab = urlTab.substring(0,3).toLowerCase()
     // console.log(urlTab)
     urlTab = '/analytics/' + urlTab
+    // console.log(urlTab)
     this.props.history.push(urlTab)
   }
 

@@ -3,10 +3,10 @@
   "header": {
     "event": "Allocation failed - JavaScript heap out of memory",
     "trigger": "FatalError",
-    "filename": "report.20190412.182249.1539.0.001.json",
-    "dumpEventTime": "2019-04-12T18:22:49Z",
-    "dumpEventTimeStamp": "1555064569295",
-    "processId": 1539,
+    "filename": "report.20190420.011137.6977.0.001.json",
+    "dumpEventTime": "2019-04-20T01:11:37Z",
+    "dumpEventTimeStamp": "1555693897712",
+    "processId": 6977,
     "commandLine": [
       "node",
       "/usr/local/bin/expo-cli",
@@ -101,23 +101,23 @@
       "symbol": "v8::internal::Runtime_AllocateInNewSpace(int, v8::internal::Object**, v8::internal::Isolate*) [/usr/local/bin/node]"
     },
     {
-      "pc": "0x00003e1b3fdcfc7d",
+      "pc": "0x00003a84993cfc7d",
       "symbol": ""
     },
     {
-      "pc": "0x00003e1b4052a392",
+      "pc": "0x00003a8499a844d4",
       "symbol": ""
     },
     {
-      "pc": "0x00003e1b40540c3a",
+      "pc": "0x00003a8499a9e45a",
       "symbol": ""
     }
   ],
   "javascriptHeap": {
-    "totalMemory": 1521565696,
-    "totalCommittedMemory": 1518150768,
-    "usedMemory": 1435432136,
-    "availableMemory": 22606680,
+    "totalMemory": 1517797376,
+    "totalCommittedMemory": 1514979904,
+    "usedMemory": 1422825576,
+    "availableMemory": 25314480,
     "memoryLimit": 1526909922,
     "heapSpaces": {
       "read_only_space": {
@@ -129,38 +129,38 @@
       },
       "new_space": {
         "memorySize": 33554432,
-        "committedMemory": 32522648,
+        "committedMemory": 32523176,
         "capacity": 16498688,
-        "used": 844584,
-        "available": 15654104
+        "used": 855872,
+        "available": 15642816
       },
       "old_space": {
-        "memorySize": 1475547136,
-        "committedMemory": 1474326712,
-        "capacity": 1428646008,
-        "used": 1427327752,
-        "available": 1318256
+        "memorySize": 1470304256,
+        "committedMemory": 1469202376,
+        "capacity": 1413494632,
+        "used": 1413225608,
+        "available": 269024
       },
       "code_space": {
-        "memorySize": 2097152,
-        "committedMemory": 1916224,
-        "capacity": 1727456,
-        "used": 1727456,
+        "memorySize": 2621440,
+        "committedMemory": 2419936,
+        "capacity": 1868224,
+        "used": 1868224,
         "available": 0
       },
       "map_space": {
         "memorySize": 5779456,
-        "committedMemory": 5279728,
-        "capacity": 2792000,
-        "used": 2792000,
+        "committedMemory": 5778688,
+        "capacity": 3184400,
+        "used": 3184400,
         "available": 0
       },
       "large_object_space": {
-        "memorySize": 4063232,
-        "committedMemory": 4063232,
-        "capacity": 7859080,
-        "used": 2706824,
-        "available": 5152256
+        "memorySize": 5013504,
+        "committedMemory": 5013504,
+        "capacity": 12578528,
+        "used": 3657952,
+        "available": 8920576
       },
       "new_large_object_space": {
         "memorySize": 0,
@@ -172,13 +172,13 @@
     }
   },
   "resourceUsage": {
-    "userCpuSeconds": 114.415,
-    "kernelCpuSeconds": 5.93142,
-    "cpuConsumptionPercent": 9.32919,
-    "maxRss": 1595861368832,
+    "userCpuSeconds": 137.628,
+    "kernelCpuSeconds": 8.00741,
+    "cpuConsumptionPercent": 6.43268,
+    "maxRss": 1600202473472,
     "pageFaults": {
       "IORequired": 0,
-      "IONotRequired": 767561
+      "IONotRequired": 1261364
     },
     "fsActivity": {
       "reads": 0,
@@ -195,10 +195,12 @@
     "npm_config_only": "",
     "npm_config_commit_hooks": "true",
     "npm_config_browser": "",
-    "npm_package_gitHead": "c7b884ca51e39cf5b682c95cedf71e1cc50ad712",
+    "npm_package_gitHead": "7cc13eff5c78b14dc6dd29a9352609359b3561c6",
     "npm_config_also": "",
+    "npm_package_dependencies_react_native_segment_tab": "^0.1.1",
     "npm_config_sign_git_commit": "",
     "npm_config_rollback": "true",
+    "npm_package_dependencies_react_native_segmented_control_tab": "^3.4.0",
     "TERM_PROGRAM": "vscode",
     "NODE": "/usr/local/Cellar/node/11.13.0/bin/node",
     "npm_config_usage": "",
@@ -216,7 +218,7 @@
     "TMPDIR": "/var/folders/4l/pxyzmsgx41x90x67d5fg1j640000gn/T/",
     "npm_config_timing": "",
     "npm_config_init_license": "ISC",
-    "Apple_PubSub_Socket_Render": "/private/tmp/com.apple.launchd.I8KLry0Q8k/Render",
+    "Apple_PubSub_Socket_Render": "/private/tmp/com.apple.launchd.78Ollwey2u/Render",
     "npm_config_if_present": "",
     "TERM_PROGRAM_VERSION": "1.30.1",
     "npm_package_scripts_android": "expo start --android",
@@ -239,11 +241,14 @@
     "npm_package_dependencies_react_native_scl_alert": "^1.2.1",
     "npm_package_scripts_ios": "expo start --ios",
     "USER": "ngkweehoon",
+    "npm_package_dependencies_simple_carousel_react_native": "^1.0.2",
     "npm_config_globalconfig": "/usr/local/etc/npmrc",
+    "npm_package_dependencies_react_native_snap_carousel": "^3.7.5",
     "npm_config_prefer_online": "",
     "npm_config_logs_max": "10",
     "npm_config_always_auth": "",
-    "SSH_AUTH_SOCK": "/private/tmp/com.apple.launchd.Hxnm3jFwRK/Listeners",
+    "SSH_AUTH_SOCK": "/private/tmp/com.apple.launchd.6qEj4Ap0n3/Listeners",
+    "npm_package_dependencies_styled_components": "^4.2.0",
     "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x64",
     "npm_execpath": "/usr/local/lib/node_modules/npm/bin/npm-cli.js",
     "npm_config_global_style": "",
@@ -280,6 +285,7 @@
     "npm_config_editor": "vi",
     "npm_config_auth_type": "legacy",
     "npm_package_dependencies_react_router_native": "^4.3.0",
+    "npm_package_dependencies_react_native_chart_kit": "^2.4.0",
     "npm_package_name": "smartBuffets",
     "LANG": "en_GB.UTF-8",
     "npm_config_tag": "latest",
@@ -325,6 +331,7 @@
     "npm_config_cache_min": "10",
     "npm_config_searchexclude": "",
     "npm_config_cache": "/Users/ngkweehoon/.npm",
+    "npm_package_dependencies_react_native_app_intro": "^1.1.5",
     "LESS": "-R",
     "LOGNAME": "ngkweehoon",
     "npm_lifecycle_script": "expo start",
