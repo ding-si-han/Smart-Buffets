@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Animated, Button, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Animated, AsyncStorage, Image, Button, FlatList } from 'react-native';
 import Sidemenu from './Sidemenu'
 import {
   SCLAlert,
   SCLAlertButton
 } from 'react-native-scl-alert'
 import FadeInView from 'react-native-fade-in-view'
+import Expo from 'expo'
+
+
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      widthProgressBolog: new Animated.Value(0.37),
-      widthProgressBlueb: new Animated.Value(0.40),
-      widthProgressMushr: new Animated.Value(0.45),
-      widthProgressMexic: new Animated.Value(0.45),
-      percentageWidthBolog: '35%',
-      percentageWidthBlueb: '40%',
-      percentageWidthMushr: '45%',
-      percentageWidthMexic: '47%',
+      widthProgressBolog: new Animated.Value(1),
+      widthProgressBlueb: new Animated.Value(1),
+      widthProgressMushr: new Animated.Value(1),
+      widthProgressMexic: new Animated.Value(1),
+      percentageWidthBolog: '53%',
+      percentageWidthBlueb: '53%',
+      percentageWidthMushr: '53%',
+      percentageWidthMexic: '53%',
       cookingItems: [],
       upcomingItems: ["Bolognese", "Blueberry Cheesecake", "Mushroom Soup", "Mexican Chorizo"],
       showMexic: false,
@@ -49,40 +52,162 @@ export default class Home extends Component {
 
 
 
-  animateWidth = (widthValue, index, name) => {
+  animateWidth = (widthValue, name) => {
+    timeTaken = Math.floor(Math.random() * 3000) + 1000
+    // console.log(timeTaken)
     Animated.timing(
       this.state['widthProgress' + name],
       {
         toValue: widthValue,
-        duration: 1500,
+        duration: timeTaken,
       }
     ).start();
 
     const progressInterpolate = this.state['widthProgress' + name].interpolate({
       inputRange: [0, 1],
-      outputRange: ["7%", "70%"],
+      outputRange: ["7%", "53%"],
       extrapolate: "clamp",
     })
     this.setState({ ["percentageWidth" + name]: progressInterpolate })
   }
 
   componentDidMount() {
-    this.timer = setInterval(() => this.getWidth(), 5000)
-    this.timer = setInterval(() => this.checkWidthProgress(), 4000)
+    this.widthGet = setInterval(() => this.getWidth(), 2000)
+    // this.getWidth()
+    this.widthCheck = setInterval(() => this.checkWidthProgress(), 5000)
+    this._retrieveData()
     this._mounted = true
   }
 
   componentWillUnmount() {
+    clearInterval(this.widthCheck)
+    clearInterval(this.widthGet)
+    this.storeData()
     this._mounted = false
   }
 
+  storeData = async () => {
+    try {
+      await AsyncStorage.setItem('cookingItems', JSON.stringify(this.state.cookingItems))
+    } catch (e) {
+      // saving error
+    }
+    try {
+      await AsyncStorage.setItem('upcomingItems', JSON.stringify(this.state.upcomingItems))
+    } catch (e) {
+      // saving error
+    }
+    try {
+      await AsyncStorage.setItem('percentageWidthBolog', JSON.stringify(this.state.percentageWidthBolog))
+    } catch (e) {
+      // saving error
+    }
+    try {
+      await AsyncStorage.setItem('percentageWidthMushr', JSON.stringify(this.state.percentageWidthMushr))
+    } catch (e) {
+      // saving error
+    }
+    try {
+      await AsyncStorage.setItem('percentageWidthBlueb', JSON.stringify(this.state.percentageWidthBlueb))
+    } catch (e) {
+      // saving error
+    }
+    try {
+      await AsyncStorage.setItem('percentageWidthMexic', JSON.stringify(this.state.percentageWidthMexic))
+    } catch (e) {
+      // saving error
+    }
+  }
+
+  clearAsyncStorage = async() => {
+    AsyncStorage.clear();
+    console.log("CLEARED")
+    Expo.Util.reload()
+  }
+
+  _retrieveData = async () => {
+    try {
+      const upcomingItems = await AsyncStorage.getItem('upcomingItems');
+      if (upcomingItems !== null) {
+        this.setState({upcomingItems: JSON.parse(upcomingItems)})
+        console.log("upcomingItems")
+        console.log(JSON.parse(upcomingItems))
+      }
+    } catch (error) {
+    }
+    try {
+      const cookingItems = await AsyncStorage.getItem('cookingItems');
+      if (cookingItems !== null) {
+        this.setState({cookingItems: JSON.parse(cookingItems)})
+        console.log("cookingItems")
+        console.log(JSON.parse(cookingItems))
+      }
+    } catch (error) {
+    }
+    try {
+      const valueBolog = await AsyncStorage.getItem('percentageWidthBolog');
+      if (valueBolog !== null) {
+        this.setState({percentageWidthBolog: JSON.parse(valueBolog)})
+        console.log("BOLOG_RETRIEVE")
+        console.log(parseFloat(valueBolog.split("%")[0].split("\"")[1])/100)
+        newValueToSetAnimationBolog = parseFloat(valueBolog.split("%")[0].split("\"")[1])/100
+        newValueToSetAnimationBolog = (newValueToSetAnimationBolog - 0.07)/63*100
+        this.setState({widthProgressBolog: new Animated.Value(newValueToSetAnimationBolog)})
+      }
+    } catch (error) {
+    }
+    try {
+      const valueMexic = await AsyncStorage.getItem('percentageWidthMexic');
+      if (valueMexic !== null) {
+        this.setState({percentageWidthMexic: JSON.parse(valueMexic)})
+        console.log("Mexic_RETRIEVE")
+        console.log(parseFloat(valueMexic.split("%")[0].split("\"")[1])/100)
+        newValueToSetAnimationMexic = parseFloat(valueMexic.split("%")[0].split("\"")[1])/100
+        newValueToSetAnimationMexic = (newValueToSetAnimationMexic - 0.07)/63*100
+        this.setState({widthProgressMexic: new Animated.Value(newValueToSetAnimationMexic)})
+      }
+    } catch (error) {
+    }
+    try {
+      const valueBlueb = await AsyncStorage.getItem('percentageWidthBlueb');
+      if (valueBlueb !== null) {
+        this.setState({percentageWidthBlueb: JSON.parse(valueBlueb)})
+        // console.log("BLUEB_RETRIEVE")
+        // console.log(parseFloat(valueBlueb.split("%")[0].split("\"")[1])/100)
+        newValueToSetAnimationBlueb = parseFloat(valueBlueb.split("%")[0].split("\"")[1])/100
+        newValueToSetAnimationBlueb = (newValueToSetAnimationBlueb - 0.07)/63*100
+        this.setState({widthProgressBlueb: new Animated.Value(newValueToSetAnimationBlueb)})
+      }
+    } catch (error) {
+    }
+    try {
+      const valueMushr = await AsyncStorage.getItem('percentageWidthMushr');
+      if (valueMushr !== null) {
+        this.setState({percentageWidthMushr: JSON.parse(valueMushr)})
+        // console.log("BLUEB_RETRIEVE")
+        // console.log(parseFloat(valueBlueb.split("%")[0].split("\"")[1])/100)
+        newValueToSetAnimationMushr = parseFloat(valueMushr.split("%")[0].split("\"")[1])/100
+        newValueToSetAnimationMushr = (newValueToSetAnimationMushr - 0.07)/63*100
+        this.setState({widthProgressMushr: new Animated.Value(newValueToSetAnimationMushr)})
+      }
+    } catch (error) {
+    }
+  }
+
   async checkWidthProgress() {
+    // console.log("CHECKING BOLOG")
+    // console.log(this.state.percentageWidthBolog)
+    
     upcomingItemsArrayList = [...this.state.upcomingItems]
     upcomingItemsArrayList.forEach((item) => {
-      inputVar = this.state[item.substring(0, 5)]
-      itemToShow = "show" + item.substring(0,5)
       if (this._mounted) {
-        if (inputVar <= 0) {
+        // console.log(item)
+        widthAnimatedValue = JSON.stringify(this.state['percentageWidth' + item.substring(0, 5)])
+        widthFloatAnimatedValue = parseFloat(widthAnimatedValue.split("%")[0].split("\"")[1])/100
+        // console.log(widthFloatAnimatedValue)
+        inputVar = this.state[item.substring(0, 5)]
+        itemToShow = "show" + item.substring(0,5)
+        if (widthFloatAnimatedValue <= 0.08) {
           console.log("alert now")
           this.state[itemToShow] = true
         } else {
@@ -99,19 +224,15 @@ async getWidth() {
       // fetch('http://192.168.0.103:5005/predict', {method: "GET"})
       .then((response) => response.json())
       .then((responseJson) => {
-        this.animateWidth(responseJson.width0[0][1] -0.21, "0", responseJson.width0[0][2])
-        this.animateWidth(responseJson.width1[0][1] - 0.20, "1", responseJson.width1[0][2])
-        this.animateWidth(responseJson.width2[0][1] -0.11, "2", responseJson.width2[0][2])
-        this.animateWidth(responseJson.width3[0][1] - 0.21, "3", responseJson.width3[0][2])
-        this.setState({
-          isLoading: false,
-          [responseJson.width0[0][2]]: responseJson.width0[0][1] -0.21,
-          [responseJson.width1[0][2]]: responseJson.width1[0][1]-0.20,
-          [responseJson.width2[0][2]]: responseJson.width2[0][1]-0.11,
-          [responseJson.width3[0][2]]: responseJson.width3[0][1]-0.21
-        }, function () {
-          
-        });
+        countVar = 0
+        cookingTimings = [0.21,0.20,0.11,0.21]
+        for (var index in responseJson) {
+          // console.log(index)
+          // console.log(responseJson[index])
+          this.animateWidth(responseJson[index][0][1] -cookingTimings[countVar], index)
+          this.setState({[index]: responseJson[index][0][1] -cookingTimings[countVar]})
+          countVar += 1
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -148,9 +269,12 @@ render() {
     <View style={styles.container}>
 
       <Sidemenu history={this.props.history} page={'Home'} />
-      <FadeInView duration={900} style={{width: '69%'}}>
+      <FadeInView duration={4000} style={{width: '69%'}}>
       <View style={styles.bodyContainer}>
         <Text style={styles.headerText}>Dashboard</Text>
+        <Button onPress={this.clearAsyncStorage} title="clear memory">
+        </Button>
+
         <Text style={styles.subheaderText}>COOKING </Text>
         <FlatList
           data={this.state.cookingItems}
