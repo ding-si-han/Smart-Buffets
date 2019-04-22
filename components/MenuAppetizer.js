@@ -85,7 +85,7 @@ export default class Menu extends Component {
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Menu'} />
-        <FadeInView duration={900} style={{width: '69%'}}>
+        <FadeInView duration={3000} style={{width: '69%'}}>
 
         <ScrollView>
 

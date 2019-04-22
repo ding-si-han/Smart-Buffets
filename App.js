@@ -13,6 +13,7 @@ import Insights from './components/Insights';
 import YesterdayTrend from './components/analytics/yestTrend';
 import MonthTrend from './components/analytics/monthTrend';
 import WeekTrend from './components/analytics/weekTrend';
+import Start from './components/Start'
 
 
 export default class App extends React.Component {
@@ -32,7 +33,7 @@ export default class App extends React.Component {
       <NativeRouter>
         <View style={styles.container} >
           <Switch>
-            <Route exact path="/" component={Home} ></Route>
+            <Route exact path="/" component={Start} ></Route>
             <Route exact path="/home" component={Home} ></Route>
             <Route exact path="/menu" component={Menu} ></Route>
             <Route exact path="/menu/appetizer" component={MenuAppetizer} ></Route>

@@ -14,14 +14,14 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      widthProgressBolog: new Animated.Value(1),
-      widthProgressBlueb: new Animated.Value(1),
-      widthProgressMushr: new Animated.Value(1),
-      widthProgressMexic: new Animated.Value(1),
-      percentageWidthBolog: '53%',
-      percentageWidthBlueb: '53%',
-      percentageWidthMushr: '53%',
-      percentageWidthMexic: '53%',
+      widthProgressBolog: new Animated.Value(1.21),
+      widthProgressBlueb: new Animated.Value(1.20),
+      widthProgressMushr: new Animated.Value(1.11),
+      widthProgressMexic: new Animated.Value(1.21),
+      percentageWidthBolog: '100%',
+      percentageWidthBlueb: '100%',
+      percentageWidthMushr: '100%',
+      percentageWidthMexic: '100%',
       cookingItems: [],
       upcomingItems: ["Bolognese", "Blueberry Cheesecake", "Mushroom Soup", "Mexican Chorizo"],
       showMexic: false,
@@ -46,14 +46,15 @@ export default class Home extends Component {
     this.setState({ cookingItems: cookingItemsArray })
   }
 
-  // sleep(ms) {
-  //   return new Promise(resolve => setTimeout(resolve, ms))
-  // }
-
-
-
   animateWidth = (widthValue, name) => {
-    timeTaken = Math.floor(Math.random() * 3000) + 1000
+    speedRate = {
+      "Bolog": 1,
+      "Blueb": 4,
+      "Mushr": 8,
+      "Mexic": 18,
+    }
+
+    timeTaken = Math.floor(Math.random() * speedRate[name] *3000) + 15000
     // console.log(timeTaken)
     Animated.timing(
       this.state['widthProgress' + name],
@@ -65,14 +66,14 @@ export default class Home extends Component {
 
     const progressInterpolate = this.state['widthProgress' + name].interpolate({
       inputRange: [0, 1],
-      outputRange: ["7%", "53%"],
+      outputRange: ["7%", "100%"],
       extrapolate: "clamp",
     })
     this.setState({ ["percentageWidth" + name]: progressInterpolate })
   }
 
   componentDidMount() {
-    this.widthGet = setInterval(() => this.getWidth(), 2000)
+    this.widthGet = setInterval(() => this.getWidth(), 5000)
     // this.getWidth()
     this.widthCheck = setInterval(() => this.checkWidthProgress(), 5000)
     this._retrieveData()
@@ -272,7 +273,7 @@ render() {
       <FadeInView duration={4000} style={{width: '69%'}}>
       <View style={styles.bodyContainer}>
         <Text style={styles.headerText}>Dashboard</Text>
-        <Button onPress={this.clearAsyncStorage} title="clear memory">
+        <Button onPress={this.clearAsyncStorage} title="Reset Dashboard">
         </Button>
 
         <Text style={styles.subheaderText}>COOKING </Text>
@@ -412,8 +413,13 @@ const styles = StyleSheet.create({
   progressText: {
     fontSize: 28,
     color: 'black',
-    paddingRight: 33,
-    paddingTop: 10,
+    marginRight: 33,
+    marginTop: 10,
+    position: 'absolute',
+    right: 0,
+    paddingHorizontal: 4,
+    backgroundColor: 'rgba(255,204,0,0.4)',
+    borderRadius: 10
   },
   yellowBar: {
     height: '100%',

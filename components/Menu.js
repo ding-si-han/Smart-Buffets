@@ -41,7 +41,7 @@ export default class Menu extends Component {
   renderCategories = (info) => {
     let currentItem = info.item
     return (
-      <View style={{height: 200}}>
+      <View style={{height: 160}}>
       <TouchableOpacity onPress={() => this.props.history.push(currentItem.pushUrl)}>
         <ImageBackground
           style={styles.imageBackgroundFood}
@@ -59,7 +59,7 @@ export default class Menu extends Component {
     return (
       <View style={styles.container}>
         <Sidemenu history={this.props.history} page={'Menu'} />
-        <FadeInView duration={900} style={{width: '69%'}}>
+        <FadeInView duration={3000} style={{width: '69%'}}>
         <ScrollView>
         <View style={styles.bodyContainer}>
           <Text style={styles.headerText}>Menu</Text>

@@ -23,6 +23,7 @@
     "react-native-snap-carousel": "^3.7.5",
     "react-native-vector-icons": "^6.1.0",
     "react-router-native": "^4.3.0",
+    "rn-falcon-app-intro": "^1.1.9",
     "simple-carousel-react-native": "^1.0.2",
     "styled-components": "^4.2.0"
   },
